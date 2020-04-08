@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-  title: vis
+  title: MT_VIS
   version: '1.0'
-  description: vis api
+  description: MT_VIS api
 servers:
   - url: 'http://localhost:3000'
 paths:
@@ -16,13 +16,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  title: soknad
-                  type: object
-                  properties:
-                    id:
-                      type: string
+                $ref: ''
       operationId: get-soknader
       parameters: []
       requestBody:
@@ -64,13 +58,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  title: vedtak
-                  type: object
-                  properties:
-                    id:
-                      type: string
+                $ref: '#/components/schemas/vedtak'
       operationId: get-soknader-id-vedtak
     patch:
       summary: ''
@@ -128,7 +116,15 @@ paths:
     get:
       summary: Your GET endpoint
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/soknad'
       operationId: get-soknader
       parameters:
         - schema:
@@ -155,7 +151,15 @@ paths:
     get:
       summary: Your GET endpoint
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/vedtak'
       operationId: get-soknader-soknadsid-vedtak
     post:
       summary: ''
@@ -173,7 +177,17 @@ paths:
     get:
       summary: Your GET endpoint
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/ansiktsfoto'
+                    - $ref: '#/components/schemas/fingeravtrykk'
       operationId: get-soknader-sokndsid-biometriopptak
     post:
       summary: ''
@@ -205,6 +219,93 @@ paths:
       responses:
         '200':
           description: OK
+  '/meldinger/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/melding'
+      operationId: get-meldinger-id
+    patch:
+      summary: ''
+      operationId: patch-meldinger-id
+      responses:
+        '200':
+          description: OK
+      description: 'Legge melding tilbake på kø, brukes hvis noe har feilet'
+      requestBody:
+        description: ''
+  /meldinger:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/melding'
+      operationId: get-meldinger
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: status
+        - schema:
+            type: string
+          in: query
+          name: system
+        - schema:
+            type: string
+          in: query
+          name: soknadsid
+        - schema:
+            type: string
+          in: query
+          name: vedtaksid
+        - schema:
+            type: number
+          in: query
+          name: antallDagerTilbakeITid
+          description: ''
+      requestBody: {}
+  /myndigheter:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/myndighet'
+      operationId: get-myndigheter
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: etat
+        - schema:
+            type: string
+          in: query
+          name: brukernavn
 components:
   schemas:
     soknad:
@@ -255,3 +356,15 @@ components:
             $ref: ''
         isFamilie:
           type: boolean
+    rolle:
+      title: rolle
+      type: object
+      properties:
+        id:
+          type: string
+    melding:
+      title: melding
+      type: object
+      properties:
+        id:
+          type: string
