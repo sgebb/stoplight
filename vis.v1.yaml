@@ -208,7 +208,13 @@ paths:
     get:
       summary: Your GET endpoint
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dossier'
       operationId: get-soknader-soknadsid-dossier
     delete:
       summary: ''
@@ -222,11 +228,11 @@ paths:
       responses:
         '200':
           description: OK
-  '/meldinger/{id}':
+  '/meldinger/{meldingsid}':
     parameters:
       - schema:
           type: string
-        name: id
+        name: meldingsid
         in: path
         required: true
     get:
@@ -333,6 +339,43 @@ paths:
       operationId: get-verifyFingeravtrykk
       description: synkron verifisering av fingeravtrykk oppmot noe
     parameters: []
+  '/visa/{visaId}':
+    parameters:
+      - schema:
+          type: string
+        name: visaId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/visum'
+      operationId: get-visa-visaId
+  /visa:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/visum'
+      operationId: get-visa
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: gruppe
 components:
   schemas:
     soknad:
