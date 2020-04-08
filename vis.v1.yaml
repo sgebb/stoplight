@@ -365,24 +365,6 @@ paths:
               type: object
               properties: {}
     parameters: []
-  '/visa/{visaId}':
-    parameters:
-      - schema:
-          type: string
-        name: visaId
-        in: path
-        required: true
-    get:
-      summary: Your GET endpoint
-      tags: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/visum'
-      operationId: get-visa-visaId
   /visa:
     get:
       summary: Your GET endpoint
@@ -408,6 +390,13 @@ paths:
       tags: []
       responses: {}
       operationId: get-grupper
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/gruppe'
     post:
       summary: ''
       operationId: post-grupper
@@ -462,6 +451,42 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/visumetikett'
+  '/visa/{visumId}':
+    parameters:
+      - schema:
+          type: string
+        name: visumId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/visum'
+      operationId: get-visa-visaId
+      description: ''
+  '/grupper/{gruppeId}':
+    parameters:
+      - schema:
+          type: string
+        name: gruppeId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-grupper-gruppeId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/gruppe'
 components:
   schemas:
     soknad:
