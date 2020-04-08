@@ -93,25 +93,15 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - title: ansiktsfoto
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                  - title: fingeravtrykk
-                    type: object
-                    properties:
-                      id:
-                        type: string
+                $ref: '#/components/schemas/biometriopptak'
       operationId: get-soknader-id-biometriopptak-id
       description: ''
     delete:
       summary: ''
       operationId: delete-soknader-id-biometriopptak-id
       responses:
-        '200':
-          description: OK
+        '202':
+          description: Accepted
   /soknader:
     get:
       summary: Your GET endpoint
@@ -141,6 +131,11 @@ paths:
       responses:
         '200':
           description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/soknad'
   '/soknader/{soknadsid}/vedtak':
     parameters:
       - schema:
@@ -167,6 +162,11 @@ paths:
       responses:
         '200':
           description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/vedtak'
   '/soknader/{sokndsid}/biometriopptak':
     parameters:
       - schema:
@@ -185,9 +185,7 @@ paths:
               schema:
                 type: array
                 items:
-                  oneOf:
-                    - $ref: '#/components/schemas/ansiktsfoto'
-                    - $ref: '#/components/schemas/fingeravtrykk'
+                  $ref: '#/components/schemas/biometriopptak'
       operationId: get-soknader-sokndsid-biometriopptak
     post:
       summary: ''
@@ -195,6 +193,11 @@ paths:
       responses:
         '200':
           description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/biometriopptak'
   '/soknader/{soknadsid}/dossier':
     parameters:
       - schema:
@@ -306,6 +309,30 @@ paths:
             type: string
           in: query
           name: brukernavn
+  /sok:
+    get:
+      summary: ''
+      operationId: get-sok
+      responses:
+        '200':
+          description: OK
+      description: synkront søk mot vis
+  /sokFingeravtrykk:
+    post:
+      summary: ''
+      operationId: post-sokFingeravtrykk
+      responses:
+        '200':
+          description: OK
+      description: asynkront søk fingeravtrykk
+  /verifiserFingeravtrykk:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-verifyFingeravtrykk
+      description: synkron verifisering av fingeravtrykk oppmot noe
+    parameters: []
 components:
   schemas:
     soknad:
@@ -356,7 +383,7 @@ components:
             $ref: ''
         isFamilie:
           type: boolean
-    rolle:
+    formaal:
       title: rolle
       type: object
       properties:
@@ -368,3 +395,8 @@ components:
       properties:
         id:
           type: string
+    biometriopptak:
+      title: biometriopptak
+      oneOf:
+        - $ref: '#/components/schemas/fingeravtrykk'
+        - $ref: '#/components/schemas/ansiktsfoto'
