@@ -419,6 +419,49 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/gruppe'
+  /visumetiketter:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/visumetikett'
+      operationId: get-visumetiketter
+  '/visumetiketter/{visumetikketId}':
+    parameters:
+      - schema:
+          type: string
+        name: visumetikketId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/visumetikett'
+      operationId: get-visumetiketter-visumetikketId
+    post:
+      summary: ''
+      operationId: post-visumetiketter-visumetikketId
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/visumetikett'
 components:
   schemas:
     soknad:
@@ -433,19 +476,16 @@ components:
       properties:
         id:
           type: string
-        resultat:
-          type: string
-          enum:
-            - avslaa
-            - henlegg
-            - innvilg
-            - avslutt
+        avgjorelse:
+          $ref: '#/components/schemas/vedtaksavgjorelse'
     visum:
       title: visum
       type: object
       properties:
         id:
           type: string
+        avgjorelse:
+          $ref: '#/components/schemas/visumavgjorelse'
     ansiktsfoto:
       title: ansiktsfoto
       type: object
@@ -506,3 +546,35 @@ components:
       items:
         type: string
       description: liste med søknad-ider
+    visumetikett:
+      title: visumetikett
+      type: object
+      properties:
+        id:
+          type: string
+        avgjorelse:
+          $ref: '#/components/schemas/visumetikettavgjorelse'
+    vedtaksavgjorelse:
+      title: vedtaksavgjorelse
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - tilbakekall
+            - annuler
+    visumavgjorelse:
+      title: visumavgjorelse
+      type: object
+      properties:
+        id:
+          type: string
+    visumetikettavgjorelse:
+      title: visumetikettavgjorelse
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - forleng
+            - utsted
