@@ -1,0 +1,257 @@
+openapi: 3.0.0
+info:
+  title: vis
+  version: '1.0'
+  description: vis api
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  '/soknader/{soknadsid}':
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  title: soknad
+                  type: object
+                  properties:
+                    id:
+                      type: string
+      operationId: get-soknader
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+    parameters:
+      - schema:
+          type: string
+        name: soknadsid
+        in: path
+        required: true
+    patch:
+      summary: ''
+      operationId: patch-soknader-id
+      responses:
+        '200':
+          description: OK
+  '/soknader/{soknadsid}/vedtak/{vedtaksid}':
+    parameters:
+      - schema:
+          type: string
+        name: soknadsid
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: vedtaksid
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  title: vedtak
+                  type: object
+                  properties:
+                    id:
+                      type: string
+      operationId: get-soknader-id-vedtak
+    patch:
+      summary: ''
+      operationId: patch-soknader-id-vedtak
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: ''
+      operationId: delete-soknader-id-vedtak-id
+      responses:
+        '200':
+          description: OK
+  '/soknader/{soknadsid}/biometriopptak/{biometriopptakid}':
+    parameters:
+      - schema:
+          type: string
+        name: soknadsid
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: biometriopptakid
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - title: ansiktsfoto
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                  - title: fingeravtrykk
+                    type: object
+                    properties:
+                      id:
+                        type: string
+      operationId: get-soknader-id-biometriopptak-id
+      description: ''
+    delete:
+      summary: ''
+      operationId: delete-soknader-id-biometriopptak-id
+      responses:
+        '200':
+          description: OK
+  /soknader:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-soknader
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: gruppe
+        - schema:
+            type: string
+          in: query
+          name: visumnummer
+    post:
+      summary: ''
+      operationId: post-soknader
+      responses:
+        '200':
+          description: OK
+  '/soknader/{soknadsid}/vedtak':
+    parameters:
+      - schema:
+          type: string
+        name: soknadsid
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-soknader-soknadsid-vedtak
+    post:
+      summary: ''
+      operationId: post-soknader-soknadsid-vedtak
+      responses:
+        '200':
+          description: OK
+  '/soknader/{sokndsid}/biometriopptak':
+    parameters:
+      - schema:
+          type: string
+        name: sokndsid
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-soknader-sokndsid-biometriopptak
+    post:
+      summary: ''
+      operationId: post-soknader-sokndsid-biometriopptak
+      responses:
+        '200':
+          description: OK
+  '/soknader/{soknadsid}/dossier':
+    parameters:
+      - schema:
+          type: string
+        name: soknadsid
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-soknader-soknadsid-dossier
+    delete:
+      summary: ''
+      operationId: delete-soknader-soknadsid-dossier
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: ''
+      operationId: post-soknader-soknadsid-dossier
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    soknad:
+      title: soknad
+      type: object
+      properties:
+        id:
+          type: string
+    vedtak:
+      title: vedtak
+      type: object
+      properties:
+        id:
+          type: string
+    visum:
+      title: visum
+      type: object
+      properties:
+        id:
+          type: string
+    ansiktsfoto:
+      title: ansiktsfoto
+      type: object
+      properties:
+        id:
+          type: string
+    fingeravtrykk:
+      title: fingeravtrykk
+      type: object
+      properties:
+        id:
+          type: string
+    myndighet:
+      title: myndighet
+      type: object
+      properties:
+        id:
+          type: string
+    gruppe:
+      title: gruppe
+      type: object
+      properties:
+        id:
+          type: string
+        soknader:
+          type: array
+          items:
+            $ref: ''
+        isFamilie:
+          type: boolean
