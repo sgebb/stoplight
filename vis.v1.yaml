@@ -380,7 +380,7 @@ components:
         soknader:
           type: array
           items:
-            $ref: ''
+            $ref: '#/components/schemas/soknad'
         isFamilie:
           type: boolean
     formaal:
@@ -400,3 +400,8 @@ components:
       oneOf:
         - $ref: '#/components/schemas/fingeravtrykk'
         - $ref: '#/components/schemas/ansiktsfoto'
+    dossier:
+      title: dossier
+      type: array
+      items:
+        $ref: '#/components/schemas/soknad'
