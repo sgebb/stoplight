@@ -331,6 +331,11 @@ paths:
         '200':
           description: OK
       description: asynkront søk fingeravtrykk
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/fingeravtrykk'
   /verifiserFingeravtrykk:
     get:
       summary: Your GET endpoint
@@ -338,6 +343,27 @@ paths:
       responses: {}
       operationId: get-verifyFingeravtrykk
       description: synkron verifisering av fingeravtrykk oppmot noe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fingeravtrykk:
+                  $ref: '#/components/schemas/fingeravtrykk'
+                person: {}
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {}
+          text/html:
+            schema:
+              type: object
+              properties: {}
     parameters: []
   '/visa/{visaId}':
     parameters:
@@ -376,6 +402,23 @@ paths:
             type: string
           in: query
           name: gruppe
+  /grupper:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-grupper
+    post:
+      summary: ''
+      operationId: post-grupper
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/gruppe'
 components:
   schemas:
     soknad:
@@ -390,6 +433,13 @@ components:
       properties:
         id:
           type: string
+        resultat:
+          type: string
+          enum:
+            - avslaa
+            - henlegg
+            - innvilg
+            - avslutt
     visum:
       title: visum
       type: object
@@ -408,6 +458,8 @@ components:
       properties:
         id:
           type: string
+        nistfil:
+          type: object
     myndighet:
       title: myndighet
       type: object
@@ -417,21 +469,26 @@ components:
     gruppe:
       title: gruppe
       type: object
+      description: 'id, gruppe med søknader. Kan være familie eller reisegruppe'
       properties:
         id:
           type: string
         soknader:
           type: array
           items:
-            $ref: '#/components/schemas/soknad'
+            type: string
         isFamilie:
           type: boolean
+      required:
+        - soknader
+        - isFamilie
     formaal:
       title: rolle
       type: object
       properties:
         id:
           type: string
+      description: AsylumExamination etc
     melding:
       title: melding
       type: object
@@ -447,4 +504,5 @@ components:
       title: dossier
       type: array
       items:
-        $ref: '#/components/schemas/soknad'
+        type: string
+      description: liste med søknad-ider
