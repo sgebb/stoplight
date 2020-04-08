@@ -488,6 +488,24 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/gruppe'
+  '/myndigheter/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    put:
+      summary: ''
+      operationId: put-myndigheter-id
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/myndighet'
 components:
   schemas:
     soknad:
