@@ -323,7 +323,7 @@ paths:
         '200':
           description: OK
       description: synkront søk mot vis
-  /sokFingeravtrykk:
+  /fingeravtrykkSok:
     post:
       summary: ''
       operationId: post-sokFingeravtrykk
@@ -336,7 +336,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/fingeravtrykk'
-  /verifiserFingeravtrykk:
+    parameters: []
+  /fingeravtrykkVerifisering:
     get:
       summary: Your GET endpoint
       tags: []
