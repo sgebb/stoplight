@@ -337,7 +337,7 @@ paths:
             schema:
               $ref: '#/components/schemas/fingeravtrykk'
     parameters: []
-  /fingeravtrykkVerifisering:
+  /fingeravtrykkVerifikasjon:
     get:
       summary: Your GET endpoint
       tags: []
