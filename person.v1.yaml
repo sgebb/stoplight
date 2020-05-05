@@ -13,7 +13,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: HentPerson
       tags: []
       responses:
         '200':
@@ -25,7 +25,7 @@ paths:
       operationId: get-personer-fnr
   /personer:
     get:
-      summary: Your GET endpoint
+      summary: HentPersoner
       tags: []
       responses:
         '200':
@@ -50,7 +50,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: HentStatsborgerskapListe
       tags: []
       responses:
         '200':
@@ -63,7 +63,7 @@ paths:
                   $ref: '#/components/schemas/statsborgerskap'
       operationId: get-personer-fnr-statsborgerskap
     post:
-      summary: ''
+      summary: OpprettStatsborgerskap
       operationId: post-personer-fnr-statsborgerskap
       responses:
         '200':
@@ -81,7 +81,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: HentStatsborgerskap
       tags: []
       responses:
         '200':
@@ -92,7 +92,7 @@ paths:
                 $ref: '#/components/schemas/statsborgerskap'
       operationId: get-statsborgerskap-id
     patch:
-      summary: ''
+      summary: OppdaterStatsborgerskap
       operationId: patch-statsborgerskap-id
       responses:
         '200':
@@ -103,7 +103,7 @@ paths:
             schema:
               $ref: '#/components/schemas/statsborgerskap'
     delete:
-      summary: ''
+      summary: SlettStatsborgerskap
       operationId: delete-statsborgerskap-id
       responses:
         '200':
