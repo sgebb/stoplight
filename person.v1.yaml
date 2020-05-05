@@ -52,15 +52,16 @@ paths:
     get:
       summary: Your GET endpoint
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/statsborgerskap'
       operationId: get-personer-fnr-statsborgerskap
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/statsborgerskap'
     post:
       summary: ''
       operationId: post-personer-fnr-statsborgerskap
@@ -82,13 +83,14 @@ paths:
     get:
       summary: Your GET endpoint
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/statsborgerskap'
       operationId: get-statsborgerskap-id
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/statsborgerskap'
     patch:
       summary: ''
       operationId: patch-statsborgerskap-id
