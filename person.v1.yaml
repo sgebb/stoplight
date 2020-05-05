@@ -1,0 +1,142 @@
+openapi: 3.0.0
+info:
+  title: person
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  '/personer/{fnr}':
+    parameters:
+      - schema:
+          type: string
+        name: fnr
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/person'
+      operationId: get-personer-fnr
+  /personer:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/person'
+      operationId: get-personer
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: fornavn
+  '/personer/{fnr}/statsborgerskap':
+    parameters:
+      - schema:
+          type: string
+        name: fnr
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-personer-fnr-statsborgerskap
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/statsborgerskap'
+    post:
+      summary: ''
+      operationId: post-personer-fnr-statsborgerskap
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/statsborgerskap'
+  '/statsborgerskap/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-statsborgerskap-id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/statsborgerskap'
+    patch:
+      summary: ''
+      operationId: patch-statsborgerskap-id
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/statsborgerskap'
+    delete:
+      summary: ''
+      operationId: delete-statsborgerskap-id
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    person:
+      title: person
+      type: object
+      x-examples:
+        example-1: {}
+      properties:
+        fnr:
+          type: string
+        fornavn:
+          type: string
+        etternavn:
+          type: string
+        statsborgerskap:
+          type: array
+          items:
+            $ref: '#/components/schemas/statsborgerskap'
+    statsborgerskap:
+      title: statsborgerskap
+      type: object
+      properties:
+        landkode:
+          type: string
+        fradato:
+          type: string
+          format: date
+        tildato:
+          type: string
+          format: date
+        landnavn:
+          type: string
+        id:
+          type: string
